@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>석굴 군주의 옥좌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="eyebrow">STONE THRONE</span>
+      <b>석굴 군주의 옥좌</b>
+    </div>
+    <div class="wallet">
+      <span class="g" id="gold">0 G</span>
+      <span class="lv" id="lvl">Lv 1</span>
+      <div class="xpbar"><i id="xp"></i></div>
+    </div>
+  </header>
+
+  <!-- 홈 -->
+  <section class="screen" id="screen-home" data-screen="home">
+    <div class="home-banner" id="cpBox">
+      <div class="home-banner-top">
+        <span class="eyebrow" id="homeKicker">스테이지 1</span>
+        <span class="cp-mini">전투력 <b id="cpNum">0</b></span>
+      </div>
+      <b id="homeTitle">입구 석굴</b>
+      <span id="homeSub">5층</span>
+      <div class="rec" id="cpRec"></div>
+      <span class="cptoast" id="cpToast"></span>
+    </div>
+    <button class="btn play" id="goPlay" type="button">스테이지 선택</button>
+    <div class="event-row" id="eventRow" aria-label="이벤트"></div>
+    <div class="home-party" id="homeParty"></div>
+  </section>
+
+  <!-- 영웅 · 스킬트리 -->
+  <section class="screen" id="screen-heroes" data-screen="heroes" hidden>
+    <div class="chips" id="heroChips"></div>
+    <div class="hero-panel" id="heroPanel"></div>
+  </section>
+
+  <!-- 장비 (인벤 오버레이와 연동) -->
+  <section class="screen" id="screen-gear" data-screen="gear" hidden>
+    <div class="gear-teaser">
+      <p>장비 · 강화 · 진화는 전체 화면에서 관리합니다.</p>
+      <button class="btn primary" id="openGearFull">장비 열기</button>
+    </div>
+  </section>
+
+  <!-- 전투 -->
+  <section class="screen battle" id="screen-battle" data-screen="battle" hidden>
+    <div class="battle-hud">
+      <span class="blk" id="blkHud">1/7층</span>
+      <div class="augchips" id="augHud" aria-label="이번 런 강화"></div>
+      <div class="floorSel" aria-label="난이도 층" hidden>
+        <button id="fDown" aria-label="아래 층">◀</button>
+        <div class="f"><b id="fNum">1층</b><small id="fMax">최고 1층</small></div>
+        <button id="fUp" aria-label="위 층">▶</button>
+      </div>
+    </div>
+    <div class="stage" id="stage">
+      <canvas id="cv" width="720" height="1040" aria-label="던전 화면"></canvas>
+      <div class="stagemap" id="stageMap" hidden>
+        <p class="map-lead">클리어한 바로 다음 칸만 열립니다.</p>
+        <div class="map-scroll" id="stagePath"></div>
+        <button class="btn" id="resumeRun" type="button" hidden>이어하기</button>
+      </div>
+      <div class="banner" id="banner" hidden><b></b><span></span></div>
+      <div class="overlay" id="intro" hidden></div>
+      <div class="overlay" id="pick" hidden></div>
+      <div class="overlay" id="result" hidden></div>
+    </div>
+    <div class="party" id="party"></div>
+    <div class="controls">
+      <button class="btn" id="pauseBtn">정지</button>
+      <button class="btn" id="speedBtn" aria-label="속도 바꾸기">속도 2×</button>
+      <button class="pill auto" id="autoUlt" aria-pressed="false">궁극기 수동</button>
+      <button class="btn" id="toMap" type="button">맵</button>
+      <button class="btn" id="exitBattle">홈</button>
+    </div>
+  </section>
+
+  <!-- 기록 -->
+  <section class="screen" id="screen-log" data-screen="log" hidden>
+    <ol id="log"></ol>
+  </section>
+
+  <nav class="tabbar" id="tabbar" aria-label="메인 메뉴">
+    <button class="tabbtn" data-nav="home" aria-selected="true"><i>홈</i></button>
+    <button class="tabbtn" data-nav="heroes"><i>영웅</i></button>
+    <button class="tabbtn" data-nav="gear"><i>장비</i></button>
+    <button class="tabbtn" data-nav="battle"><i>전투</i></button>
+    <button class="tabbtn" data-nav="log"><i>기록</i></button>
+  </nav>
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet-card" id="sheetCard" role="dialog" aria-modal="true"></div>
+  </div>
+</div>
+
+<div class="inv" id="inv" hidden role="dialog" aria-label="장비"></div>
+<button class="btn primary eqbtn fab" id="eqBtn" hidden>장비<span class="dot" id="eqDot" hidden>0</span></button>
+
+<script src="js/tiles.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>

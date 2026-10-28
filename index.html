@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+  <meta name="robots" content="noindex,nofollow">
+  <title>석굴 군주의 옥좌</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#e9ebee; --panel:#f6f7f9; --ink:#1d2128; --muted:#5d6470; --line:#c9cdd3; --tape:#d9a300; --tapeInk:#1d2128; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#16191e; --panel:#1f232a; --ink:#e6e8ec; --muted:#9aa1ad; --line:#343a44; --tape:#f0bb1e; --tapeInk:#16191e; }
+    }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--ink);
+      font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+    .gate { min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; }
+    .card { width: min(360px, 100%); background: var(--panel); border: 1px solid var(--line); padding: 22px 18px; display: flex; flex-direction: column; gap: 10px; }
+    .card b { font-size: 22px; }
+    .card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    input { border: 1px solid var(--line); background: var(--bg); color: var(--ink); padding: 12px; font-size: 16px; }
+    button { border: 0; background: var(--tape); color: var(--tapeInk); padding: 12px; font-weight: 700; font-size: 15px; cursor: pointer; }
+    .err { color: #b42318; font-size: 12px; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+<div class="gate" id="gate">
+  <form class="card" id="form">
+    <b>석굴 군주의 옥좌</b>
+    <p>테스트용입니다. 비밀번호를 입력하면 게임이 열립니다.</p>
+    <input id="pw" type="password" autocomplete="current-password" placeholder="비밀번호" inputmode="text">
+    <div class="err" id="err"></div>
+    <button type="submit">입장</button>
+  </form>
+</div>
+<script>
+(function () {
+  // 클라이언트 비밀번호: 주소 아는 사람 중 비번 모르는 사람만 막습니다.
+  var KEY = 'stone-throne-gate';
+  var EXPECT = 'seokgul2026';
+  function go() { location.replace('./%EC%84%9D%EA%B5%B4%20%EA%B5%B0%EC%A3%BC%EC%9D%98%20%EC%98%A5%EC%A2%8C.html'); }
+  try { if (sessionStorage.getItem(KEY) === '1') go(); } catch (e) {}
+  document.getElementById('form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var v = document.getElementById('pw').value;
+    if (v === EXPECT) {
+      try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+      go();
+    } else {
+      document.getElementById('err').textContent = '비밀번호가 맞지 않습니다.';
+      document.getElementById('pw').value = '';
+      document.getElementById('pw').focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>
